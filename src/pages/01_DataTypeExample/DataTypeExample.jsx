@@ -1,0 +1,137 @@
+import React, { useState } from "react";
+
+const DataTypeExample = () => {
+  const [stringVar, setStringVar] = useState("");
+  const [integerVar, setIntegerVar] = useState("");
+  const [booleanVar, setBooleanVar] = useState("");
+  const [inputValue, setInputValue] = useState("");
+  const [convertedInt, setConvertedInt] = useState(null);
+  const [convertedFloat, setConvertedFloat] = useState(null);
+  const [convertedString, setConvertedString] = useState("");
+  const [student, setStudent] = useState({ name: "", age: "", grade: "" });
+  const [studentSet, setStudentSet] = useState(new Set());
+
+  const handleInput = () => {
+    console.log("String Variable:", stringVar);
+    console.log("Integer Variable:", parseInt(integerVar));
+    console.log("Boolean Variable:", booleanVar === "1");
+  };
+
+  const handleBooleanChange = (e) => {
+    const value = e.target.value;
+    if (value === "0" || value === "1") {
+      setBooleanVar(value);
+    }
+  };
+
+  const handleConversion = () => {
+    setConvertedInt(parseInt(inputValue));
+    setConvertedFloat(parseFloat(inputValue));
+    setConvertedString(String(inputValue));
+  };
+
+  const handleStudentChange = (e) => {
+    const { name, value } = e.target;
+    setStudent((prevStudent) => ({ ...prevStudent, [name]: value }));
+  };
+
+  const submitStudent = () => {
+    if (!student.name.trim() || !student.age.trim() || !student.grade.trim()) {
+      alert("กรุณากรอกข้อมูลให้ครบทุกช่อง");
+      return;
+    }
+    const studentTuple = JSON.stringify([student.name, student.age, student.grade]);
+    if (studentSet.has(studentTuple)) {
+      alert("ชื่อซ้ำ กรุณาใช้ชื่ออื่น");
+      return;
+    }
+    setStudentSet(new Set(studentSet).add(studentTuple));
+    setStudent({ name: "", age: "", grade: "" });
+  };
+
+  return (
+    <div>
+      <h3><b>พื้นฐานของตัวแปรและชนิดข้อมูล</b></h3>
+      <h5>สร้างตัวแปรเก็บ string, integer, boolean</h5>
+      <div style={{ marginBottom: "10px" }}>
+        String : &nbsp;
+        <input
+          type="text"
+          placeholder="Enter string"
+          value={stringVar}
+          onChange={(e) => setStringVar(e.target.value)}
+        />
+      </div>
+      <div style={{ marginBottom: "10px" }}>
+        Integer : &nbsp;
+        <input
+          type="number"
+          placeholder="Enter integer"
+          value={integerVar}
+          onChange={(e) => setIntegerVar(e.target.value)}
+        />
+      </div>
+      <div style={{ marginBottom: "10px" }}>
+        Boolean : &nbsp;
+        <input
+          type="text"
+          placeholder="Enter 0 or 1"
+          value={booleanVar}
+          onChange={handleBooleanChange}
+        />
+      </div>
+      <button onClick={handleInput}>Submit</button>
+      <div>
+        <br />
+        <h5>ทดสอบการแปลงชนิดข้อมูล</h5>
+        <input
+          type="text"
+          placeholder="Enter a value to convert"
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+        />
+        &nbsp;
+        <button onClick={handleConversion}>Convert</button>
+        <p>Converted to Int : {convertedInt}</p>
+        <p>Converted to Float : {convertedFloat}</p>
+        <p>Converted to String : {convertedString}</p>
+      </div>
+      <hr />
+      <div>
+        <h3><b>สร้างและใช้งานโครงสร้างข้อมูล</b></h3>
+        <h5>Tuple & Set → ทดสอบสร้าง Tuple และใช้ Set เพื่อกำจัดค่าที่ซ้ำกัน</h5>
+        <input
+          type="text"
+          name="name"
+          placeholder="Enter name"
+          value={student.name}
+          onChange={handleStudentChange}
+        /> &nbsp;
+        <input
+          type="number"
+          name="age"
+          placeholder="Enter age"
+          value={student.age}
+          onChange={handleStudentChange}
+        /> &nbsp;
+        <input
+          type="number"
+          name="grade"
+          placeholder="Enter grade"
+          value={student.grade}
+          onChange={handleStudentChange}
+        /> &nbsp;
+        <button onClick={submitStudent}>Submit</button>
+        <h6>ข้อมูลนักเรียนที่บันทึกไว้</h6>
+        <ul>
+          {[...studentSet].map((s, index) => {
+            const [name, age, grade] = JSON.parse(s);
+            return <li key={index}>Name: {name}, Age: {age}, Grade: {grade}</li>;
+          })}
+        </ul>
+      </div>
+    </div>
+  );
+};
+
+export default DataTypeExample;
