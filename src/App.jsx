@@ -1,5 +1,6 @@
 import { useState } from "react";
 import DataTypeExample from "./pages/01_DataTypeExample/DataTypeExample"; // ✅ Import Component
+import ElementAndEvent from "./pages/02_ElementAndEvent/ElementAndEvent"; // ✅ Import ElementAndEvent
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
@@ -26,16 +27,16 @@ function App() {
           <div
             className="mb-2 text-primary"
             style={{ cursor: "pointer" }}
-            onClick={() => setSelectedComponent("You clicked Btn2")}
+            onClick={() => setSelectedComponent(<ElementAndEvent />)} // ✅ แสดง ElementAndEvent เมื่อคลิก Btn2
           >
-            Btn2
+            02 ElementAndEvent
           </div>
           <div
             className="mb-2 text-primary"
             style={{ cursor: "pointer" }}
             onClick={() => setSelectedComponent("You clicked Btn3")}
           >
-            Btn3
+            03 PseudocodeAndAlgorithm
           </div>
           <div
             className="mb-2 text-primary"
