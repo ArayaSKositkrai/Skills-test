@@ -30,10 +30,16 @@ function PseudocodeAndAlgorithm() {
   };
 
   const calculateArea = () => {
-    const r = parseFloat(radius);
-    if (!isNaN(r) && r > 0) {
-      setArea(3.14 * r * r);
-    } else {
+    try {
+      const r = parseFloat(radius);
+      console.log("Radius Input:", r);
+      if (!isNaN(r) && r > 0) {
+        setArea(3.14 * r * r);
+      } else {
+        throw new Error("Invalid radius value");
+      }
+    } catch (error) {
+      console.error("Error calculating area:", error);
       setArea(null);
     }
   };
@@ -141,7 +147,7 @@ function PseudocodeAndAlgorithm() {
   return (
     <div>
       <h3 className="text-xl font-bold mb-2">03 Pseudocode and Algorithm</h3>
-      <h5 className="text-xl font-bold mt-4">Calculate Area of Circle</h5>
+      <h5 className="text-xl font-bold mt-4">Calculate Area of Circle (มี console, Try-Catch)</h5>
       <input
         type="number"
         value={radius}
