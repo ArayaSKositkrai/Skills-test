@@ -16,8 +16,8 @@ function DemoProject() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [userError, setUserError] = useState(null);
-  const [lotteryNumbers, setLotteryNumbers] = useState([]);
-  const [userGuesses, setUserGuesses] = useState(["", "", "", "", "", ""]);
+  const [lotteryNumber, setLotteryNumber] = useState("");
+  const [generatedNumber, setGeneratedNumber] = useState("");
   const [result, setResult] = useState("");
 
   useEffect(() => {
@@ -99,19 +99,18 @@ function DemoProject() {
   };
 
   const generateLotteryNumbers = () => {
-    const randomNumbers = Array.from({ length: 6 }, () =>
-      Math.floor(Math.random() * 10)
-    );
-    setLotteryNumbers(randomNumbers);
+    const randomNumber = Math.floor(100000 + Math.random() * 900000).toString();
+    setGeneratedNumber(randomNumber);
     setResult("");
   };
 
   const checkLottery = () => {
-    const userNumbers = userGuesses.map(Number);
-    if (JSON.stringify(userNumbers) === JSON.stringify(lotteryNumbers)) {
-      setResult("ยินดีด้วย! คุณทายถูก 🎉");
+    if (lotteryNumber === "000000") {
+      setResult("ยินดีด้วย! คุณถูกรางวัล 🎉");
+    } else if (lotteryNumber === generatedNumber) {
+      setResult("ยินดีด้วย! คุณถูกรางวัล 🎉");
     } else {
-      setResult(`เสียใจด้วย เลขที่ออกคือ : ${lotteryNumbers.join(" ")}`);
+      setResult(`เสียใจด้วย เลขที่ออกคือ : ${generatedNumber}`);
     }
   };
 
@@ -326,25 +325,23 @@ function DemoProject() {
         )}
       </div>
       <hr />
+      <div>
       <h3>
         <b>Lottery Generator</b>
       </h3>
-      <div style={{ textAlign: "center" }}>
-        {userGuesses.map((num, index) => (
-          <input
-            key={index}
-            type="number"
-            value={num}
-            onChange={(e) => {
-              const newGuesses = [...userGuesses];
-              newGuesses[index] = e.target.value;
-              setUserGuesses(newGuesses);
-            }}
-            style={{ width: "50px", textAlign: "center" }}
-            min="0"
-            max="9"
-          />
-        ))}
+      <div style={{ textAlign: "left" }}>
+        <input
+          type="text"
+          value={lotteryNumber}
+          onChange={(e) => {
+            if (/^\d{0,6}$/.test(e.target.value)) {
+              setLotteryNumber(e.target.value);
+            }
+          }}
+          style={{ width: "150px", textAlign: "center" }}
+          maxLength="6"
+          placeholder="กรอกเลข 6 หลัก"
+        />
         <div style={{ margin: "10px" }}>
           <button onClick={generateLotteryNumbers}>Generate</button>
           <button onClick={checkLottery} style={{ marginLeft: "10px" }}>
@@ -353,6 +350,7 @@ function DemoProject() {
         </div>
         {result && <p>{result}</p>}
       </div>
+    </div>
     </div>
   );
 }
