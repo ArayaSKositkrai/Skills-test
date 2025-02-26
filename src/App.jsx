@@ -1,8 +1,9 @@
 import { useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 import DataTypeExample from "./pages/01_DataTypeExample/DataTypeExample";
 import ElementAndEvent from "./pages/02_ElementAndEvent/ElementAndEvent";
 import PseudocodeAndEvent from "./pages/03_PseudocodeAndAlgorithm/PseudocodeAndAlgorithm";
-import "bootstrap/dist/css/bootstrap.min.css";
+import DemoProject from "./pages/04_DemoProject/DemoProject";
 
 function App() {
   const [selectedComponent, setSelectedComponent] = useState(null);
@@ -21,14 +22,14 @@ function App() {
           <div
             className="mb-2 text-primary"
             style={{ cursor: "pointer" }}
-            onClick={() => setSelectedComponent(<DataTypeExample />)} // ✅ แสดง DataTypeExample เมื่อคลิก Btn1
+            onClick={() => setSelectedComponent(<DataTypeExample />)}
           >
             01 DataTypeExample
           </div>
           <div
             className="mb-2 text-primary"
             style={{ cursor: "pointer" }}
-            onClick={() => setSelectedComponent(<ElementAndEvent />)} // ✅ แสดง ElementAndEvent เมื่อคลิก Btn2
+            onClick={() => setSelectedComponent(<ElementAndEvent />)}
           >
             02 ElementAndEvent
           </div>
@@ -42,16 +43,9 @@ function App() {
           <div
             className="mb-2 text-primary"
             style={{ cursor: "pointer" }}
-            onClick={() => setSelectedComponent("You clicked Btn4")}
+            onClick={() => setSelectedComponent(<DemoProject />)}
           >
-            Btn4
-          </div>
-          <div
-            className="mb-2 text-primary"
-            style={{ cursor: "pointer" }}
-            onClick={() => setSelectedComponent("You clicked Btn5")}
-          >
-            Btn5
+            04 DemoProject
           </div>
         </div>
 
