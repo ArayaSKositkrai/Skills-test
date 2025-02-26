@@ -8,6 +8,8 @@ const DataTypeExample = () => {
   const [convertedInt, setConvertedInt] = useState(null);
   const [convertedFloat, setConvertedFloat] = useState(null);
   const [convertedString, setConvertedString] = useState("");
+  const [list, setList] = useState([]);
+  const [newItem, setNewItem] = useState("");
   const [student, setStudent] = useState({ name: "", age: "", grade: "" });
   const [studentSet, setStudentSet] = useState(new Set());
 
@@ -30,6 +32,25 @@ const DataTypeExample = () => {
     setConvertedString(String(inputValue));
   };
 
+  const addItem = () => {
+    if (newItem.trim() === "") return;
+    setList([...list, newItem]);
+    setNewItem("");
+  };
+
+  const removeItem = (index) => {
+    setList(list.filter((_, i) => i !== index));
+  };
+
+  const editItem = (index) => {
+    const updatedItem = prompt("แก้ไขข้อมูล:", list[index]);
+    if (updatedItem !== null) {
+      const updatedList = [...list];
+      updatedList[index] = updatedItem;
+      setList(updatedList);
+    }
+  };
+
   const handleStudentChange = (e) => {
     const { name, value } = e.target;
     setStudent((prevStudent) => ({ ...prevStudent, [name]: value }));
@@ -40,7 +61,11 @@ const DataTypeExample = () => {
       alert("กรุณากรอกข้อมูลให้ครบทุกช่อง");
       return;
     }
-    const studentTuple = JSON.stringify([student.name, student.age, student.grade]);
+    const studentTuple = JSON.stringify([
+      student.name,
+      student.age,
+      student.grade,
+    ]);
     if (studentSet.has(studentTuple)) {
       alert("ชื่อซ้ำ กรุณาใช้ชื่ออื่น");
       return;
@@ -51,7 +76,9 @@ const DataTypeExample = () => {
 
   return (
     <div>
-      <h3><b>พื้นฐานของตัวแปรและชนิดข้อมูล</b></h3>
+      <h3>
+        <b>พื้นฐานของตัวแปรและชนิดข้อมูล</b>
+      </h3>
       <h5>สร้างตัวแปรเก็บ string, integer, boolean</h5>
       <div style={{ marginBottom: "10px" }}>
         String : &nbsp;
@@ -98,35 +125,66 @@ const DataTypeExample = () => {
       </div>
       <hr />
       <div>
-        <h3><b>สร้างและใช้งานโครงสร้างข้อมูล</b></h3>
-        <h5>Tuple & Set → ทดสอบสร้าง Tuple และใช้ Set เพื่อกำจัดค่าที่ซ้ำกัน</h5>
+        <h3>
+          <b>สร้างและใช้งานโครงสร้างข้อมูล</b>
+        </h3>
+        <div>
+          <h5>List & Array → เพิ่ม, ลบ, แก้ไขข้อมูลในลิสต์</h5>
+          <input
+            type="text"
+            placeholder="เพิ่มข้อมูลในลิสต์"
+            value={newItem}
+            onChange={(e) => setNewItem(e.target.value)}
+          />
+          &nbsp;
+          <button onClick={addItem}>เพิ่ม</button>
+          <ul>
+            {list.map((item, index) => (
+              <li key={index}>
+                {item} &nbsp;
+                <button onClick={() => editItem(index)}>แก้ไข</button>
+                <button onClick={() => removeItem(index)}>ลบ</button>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <h5>
+          Tuple & Set → ทดสอบสร้าง Tuple และใช้ Set เพื่อกำจัดค่าที่ซ้ำกัน
+        </h5>
         <input
           type="text"
           name="name"
           placeholder="Enter name"
           value={student.name}
           onChange={handleStudentChange}
-        /> &nbsp;
+        />{" "}
+        &nbsp;
         <input
           type="number"
           name="age"
           placeholder="Enter age"
           value={student.age}
           onChange={handleStudentChange}
-        /> &nbsp;
+        />{" "}
+        &nbsp;
         <input
           type="number"
           name="grade"
           placeholder="Enter grade"
           value={student.grade}
           onChange={handleStudentChange}
-        /> &nbsp;
+        />{" "}
+        &nbsp;
         <button onClick={submitStudent}>Submit</button>
         <h6>ข้อมูลนักเรียนที่บันทึกไว้</h6>
         <ul>
           {[...studentSet].map((s, index) => {
             const [name, age, grade] = JSON.parse(s);
-            return <li key={index}>Name: {name}, Age: {age}, Grade: {grade}</li>;
+            return (
+              <li key={index}>
+                Name: {name}, Age: {age}, Grade: {grade}
+              </li>
+            );
           })}
         </ul>
       </div>
