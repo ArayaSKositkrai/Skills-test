@@ -30,17 +30,17 @@ const ElementAndEvent = () => {
     }
   };
 
-  useEffect(() => {
-    const button = document.getElementById("eventButton");
-    if (button) {
-      button.addEventListener("click", () => alert("Button clicked!"));
-    }
-    return () => {
-      if (button) {
-        button.removeEventListener("click", () => alert("Button clicked!"));
-      }
-    };
-  }, []);
+  // useEffect(() => {
+  //   const button = document.getElementById("eventButton");
+  //   if (button) {
+  //     button.addEventListener("click", () => alert("Button clicked!"));
+  //   }
+  //   return () => {
+  //     if (button) {
+  //       button.removeEventListener("click", () => alert("Button clicked!"));
+  //     }
+  //   };
+  // }, []);
 
   return (
     <div style={{ height: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", backgroundColor: bgColor }}>
@@ -48,7 +48,13 @@ const ElementAndEvent = () => {
         id="eventButton"
         onClick={changeBackground}
         onMouseOver={handleMouseOver}
-        style={{ padding: "10px 20px", fontSize: "16px", cursor: "pointer", marginBottom: "10px" }}
+        style={{
+          padding: "10px 20px",
+          fontSize: "16px",
+          cursor: "pointer",
+          marginBottom: "10px",
+          transition: "padding 0.5s ease, font-size 0.5s ease, background-color 0.5s ease"
+        }}
       >
         เปลี่ยนสีพื้นหลัง
       </button>

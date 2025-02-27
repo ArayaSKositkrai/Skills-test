@@ -116,7 +116,7 @@ function DemoProject() {
 
   return (
     <div>
-      <h3>Demo Project</h3>
+      <h3><b><center>Demo Project</center></b></h3>
       <h5>
         <b>
           <center>To-Do List Web App</center>
@@ -148,8 +148,8 @@ function DemoProject() {
           style={{
             padding: "8px",
             borderRadius: "5px",
-            background: "#28a745",
-            color: "white",
+            background: "lightblue",
+            color: "black",
             border: "none",
           }}
         >
@@ -163,14 +163,14 @@ function DemoProject() {
           margin: "auto",
           borderCollapse: "collapse",
           textAlign: "center",
-          background: "#fff",
+          background: "ligthblue",
           boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
           borderRadius: "10px",
           overflow: "hidden",
         }}
       >
         <thead>
-          <tr style={{ background: "#007bff", color: "white" }}>
+          <tr style={{ background: "#ADD8E6", color: "black" }}>
             <th style={{ padding: "10px", borderBottom: "2px solid #ddd" }}>
               Task
             </th>
@@ -225,7 +225,7 @@ function DemoProject() {
         }}
       >
         <thead>
-          <tr style={{ background: "#007bff", color: "white" }}>
+          <tr style={{ background: "#ADD8E6", color: "black" }}>
             <th style={{ padding: "10px", borderBottom: "2px solid #ddd" }}>
               รหัสวิชา
             </th>
@@ -288,8 +288,8 @@ function DemoProject() {
           style={{
             padding: "10px",
             borderRadius: "5px",
-            background: "#007bff",
-            color: "white",
+            background: "#ADD8E6",
+            color: "black",
             border: "none",
           }}
         >
@@ -327,9 +327,9 @@ function DemoProject() {
       <hr />
       <div>
       <h3>
-        <b>Lottery Generator</b>
+        <b><center>Lottery Generator</center></b>
       </h3>
-      <div style={{ textAlign: "left" }}>
+      <div style={{ textAlign: "center" }}>
         <input
           type="text"
           value={lotteryNumber}
@@ -338,13 +338,13 @@ function DemoProject() {
               setLotteryNumber(e.target.value);
             }
           }}
-          style={{ width: "150px", textAlign: "center" }}
+          style={{ width: "150px", textAlign: "center", borderRadius:"10px"}}
           maxLength="6"
           placeholder="กรอกเลข 6 หลัก"
         />
         <div style={{ margin: "10px" }}>
-          <button onClick={generateLotteryNumbers}>Generate</button>
-          <button onClick={checkLottery} style={{ marginLeft: "10px" }}>
+          <button onClick={generateLotteryNumbers} style={{ backgroundColor: "lightblue" }}>Generate</button>
+          <button onClick={checkLottery} style={{ marginLeft: "10px",backgroundColor: "lightblue" }}>
             Check
           </button>
         </div>

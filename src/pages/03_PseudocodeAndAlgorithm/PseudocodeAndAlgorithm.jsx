@@ -146,8 +146,8 @@ function PseudocodeAndAlgorithm() {
 
   return (
     <div>
-      <h3 className="text-xl font-bold mb-2">03 Pseudocode and Algorithm</h3>
-      <h5 className="text-xl font-bold mt-4">Calculate Area of Circle (มี console, Try-Catch)</h5>
+      <h3><b><center>03 Pseudocode and Algorithm</center></b></h3>
+      <h5>Calculate Area of Circle (มี console, Try-Catch)</h5>
       <input
         type="number"
         value={radius}
@@ -159,6 +159,7 @@ function PseudocodeAndAlgorithm() {
       <button
         onClick={calculateArea}
         className="mt-2 bg-blue-500 text-black p-2 rounded w-full"
+        style={{ backgroundColor: "lightblue" }}
       >
         Calculate Area
       </button>
@@ -179,6 +180,7 @@ function PseudocodeAndAlgorithm() {
       <button
         onClick={checkAgeCategory}
         className="mt-2 bg-green-500 text-black p-2 rounded w-full"
+        style={{ backgroundColor: "lightblue" }}
       >
         Check Age
       </button>
@@ -196,6 +198,7 @@ function PseudocodeAndAlgorithm() {
       <button
         onClick={checkParity}
         className="mt-2 bg-red-500 text-black p-2 rounded w-full"
+        style={{ backgroundColor: "lightblue" }}
       >
         Check Number
       </button>
@@ -205,6 +208,7 @@ function PseudocodeAndAlgorithm() {
       <button
         onClick={generateForLoopNumbers}
         className="mt-2 bg-purple-500 text-black p-2 rounded w-full"
+        style={{ backgroundColor: "lightblue" }}
       >
         Generate Numbers
       </button>
@@ -222,6 +226,7 @@ function PseudocodeAndAlgorithm() {
       <button
         onClick={handleUserInput}
         className="mt-2 bg-yellow-500 text-black p-2 rounded w-full"
+        style={{ backgroundColor: "lightblue" }}
       >
         Submit Input
       </button>
@@ -244,12 +249,14 @@ function PseudocodeAndAlgorithm() {
         <button
           onClick={handleSort}
           className="mt-2 bg-blue-500 text-black p-2 rounded w-full"
+          style={{ backgroundColor: "lightblue" }}
         >
           Sort Numbers
         </button>
         {sortedNumbers.length > 0 && (
           <p className="mt-2 text-lg">
             Sorted Numbers: {sortedNumbers.join(", ")}
+            style={{ backgroundColor: "lightblue" }}
           </p>
         )}
       </div>
@@ -262,6 +269,7 @@ function PseudocodeAndAlgorithm() {
         <button
           onClick={generateRandomNumbers}
           className="mt-2 bg-gray-500 text-black p-2 rounded w-full"
+          style={{ backgroundColor: "lightblue" }}
         >
           Random
         </button>
@@ -269,6 +277,7 @@ function PseudocodeAndAlgorithm() {
         <button
           onClick={sortRandomNumbers}
           className="mt-2 bg-gray-700 text-black p-2 rounded w-full"
+          style={{ backgroundColor: "lightblue" }}
         >
           Sort
         </button>
@@ -296,6 +305,7 @@ function PseudocodeAndAlgorithm() {
           <button
             onClick={calculateFactorial}
             className="mt-2 bg-blue-500 text-black p-2 rounded w-full"
+            style={{ backgroundColor: "lightblue" }}
           >
             Calculate Factorial
           </button>
@@ -316,6 +326,7 @@ function PseudocodeAndAlgorithm() {
           <button
             onClick={calculateFibonacci}
             className="mt-2 bg-blue-500 text-black p-2 rounded w-full"
+            style={{ backgroundColor: "lightblue" }}
           >
             Calculate Fibonacci
           </button>

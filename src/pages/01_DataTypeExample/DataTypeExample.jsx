@@ -78,8 +78,8 @@ const DataTypeExample = () => {
     <div>
       <h3>
         <b>พื้นฐานของตัวแปรและชนิดข้อมูล</b>
-      </h3>
-      <h5>สร้างตัวแปรเก็บ string, integer, boolean</h5>
+      </h3><br />
+      <h5><b>สร้างตัวแปรเก็บ string, integer, boolean</b></h5>
       <div style={{ marginBottom: "10px" }}>
         String : &nbsp;
         <input
@@ -107,10 +107,10 @@ const DataTypeExample = () => {
           onChange={handleBooleanChange}
         />
       </div>
-      <button onClick={handleInput}>Submit</button>
+      <button onClick={handleInput} style={{ backgroundColor: "lightblue" }}>Submit</button>
       <div>
         <br />
-        <h5>ทดสอบการแปลงชนิดข้อมูล</h5>
+        <h5><b>ทดสอบการแปลงชนิดข้อมูล</b></h5>
         <input
           type="text"
           placeholder="Enter a value to convert"
@@ -118,7 +118,7 @@ const DataTypeExample = () => {
           onChange={(e) => setInputValue(e.target.value)}
         />
         &nbsp;
-        <button onClick={handleConversion}>Convert</button>
+        <button onClick={handleConversion} style={{ backgroundColor: "lightblue" }}>Convert</button>
         <p>Converted to Int : {convertedInt}</p>
         <p>Converted to Float : {convertedFloat}</p>
         <p>Converted to String : {convertedString}</p>
@@ -128,8 +128,9 @@ const DataTypeExample = () => {
         <h3>
           <b>สร้างและใช้งานโครงสร้างข้อมูล</b>
         </h3>
+        <br />
         <div>
-          <h5>List & Array → เพิ่ม, ลบ, แก้ไขข้อมูลในลิสต์</h5>
+          <h5><b>List & Array → เพิ่ม, ลบ, แก้ไขข้อมูลในลิสต์</b></h5>
           <input
             type="text"
             placeholder="เพิ่มข้อมูลในลิสต์"
@@ -137,7 +138,7 @@ const DataTypeExample = () => {
             onChange={(e) => setNewItem(e.target.value)}
           />
           &nbsp;
-          <button onClick={addItem}>เพิ่ม</button>
+          <button onClick={addItem} style={{ backgroundColor: "lightblue" }}>เพิ่ม</button>
           <ul>
             {list.map((item, index) => (
               <li key={index}>
@@ -148,9 +149,9 @@ const DataTypeExample = () => {
             ))}
           </ul>
         </div>
-        <h5>
+        <h5><b>
           Tuple & Set → ทดสอบสร้าง Tuple และใช้ Set เพื่อกำจัดค่าที่ซ้ำกัน
-        </h5>
+        </b></h5>
         <input
           type="text"
           name="name"
@@ -175,7 +176,8 @@ const DataTypeExample = () => {
           onChange={handleStudentChange}
         />{" "}
         &nbsp;
-        <button onClick={submitStudent}>Submit</button>
+        <button onClick={submitStudent} style={{ backgroundColor: "lightblue" }}>Submit</button>
+        <br />
         <h6>ข้อมูลนักเรียนที่บันทึกไว้</h6>
         <ul>
           {[...studentSet].map((s, index) => {

@@ -12,13 +12,13 @@ function App() {
     <div className="d-flex flex-column vh-100 vw-100">
       {/* Header */}
       <div className="bg-light text-center p-3 border">
-        <h4>Skills Test</h4>
+        <h2>Skills Test</h2>
       </div>
 
       {/* Main Content */}
       <div className="d-flex flex-grow-1">
         {/* Sidebar */}
-        <div className="d-flex flex-column border-end p-3 bg-light" style={{ width: "200px" }}>
+        <div className="d-flex flex-column border-end p-3 bg-light" style={{ width: "250px" }}>
           <div
             className="mb-2 text-primary"
             style={{ cursor: "pointer" }}
@@ -51,7 +51,7 @@ function App() {
 
         {/* Main Content Display */}
         <div className="flex-grow-1 p-3 bg-light">
-          {selectedComponent ? selectedComponent : <h5><center>😺</center></h5>}
+          {selectedComponent ? selectedComponent : <h5><center>😺 66048395 อารยา โฆษิตไกร 😺</center></h5>}
         </div>
       </div>
     </div>
