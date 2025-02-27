@@ -56,7 +56,7 @@ const ElementAndEvent = () => {
           transition: "padding 0.5s ease, font-size 0.5s ease, background-color 0.5s ease"
         }}
       >
-        เปลี่ยนสีพื้นหลัง
+        Change BG color
       </button>
       <p>{message}</p>
       <input type="text" placeholder="Type something..." onKeyUp={handleKeyUp} style={{ marginBottom: "10px", padding: "5px" }} />

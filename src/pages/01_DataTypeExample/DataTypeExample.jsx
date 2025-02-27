@@ -138,7 +138,7 @@ const DataTypeExample = () => {
             onChange={(e) => setNewItem(e.target.value)}
           />
           &nbsp;
-          <button onClick={addItem} style={{ backgroundColor: "lightblue" }}>เพิ่ม</button>
+          <button onClick={addItem} style={{ backgroundColor: "lightblue" }}>Add</button>
           <ul>
             {list.map((item, index) => (
               <li key={index}>
