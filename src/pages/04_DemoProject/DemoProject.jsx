@@ -2,7 +2,9 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 function DemoProject() {
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState(() => {
+    return JSON.parse(localStorage.getItem("todos")) || []
+  });
   const [inputValue, setInputValue] = useState("");
   const [error, setError] = useState("");
   const [subjects, setSubjects] = useState({
@@ -21,8 +23,15 @@ function DemoProject() {
   const [result, setResult] = useState("");
 
   useEffect(() => {
-    const savedTodos = JSON.parse(localStorage.getItem("todos")) || [];
-    setTodos(savedTodos);
+    try {
+      const savedTodos = JSON.parse(localStorage.getItem("todos")) || [];
+      if (Array.isArray(savedTodos)) {
+        setTodos(savedTodos);
+      }
+    } catch (e) {
+      console.error("Error reading localStorage", e);
+      setTodos([]); 
+    }
   }, []);
 
   useEffect(() => {
@@ -49,13 +58,17 @@ function DemoProject() {
       setError("ข้อมูลซ้ำ");
       return;
     }
-    setTodos([...todos, inputValue.trim()]);
+    const newTodos = [...todos, inputValue.trim()];
+    setTodos(newTodos);
+    localStorage.setItem("todos", JSON.stringify(newTodos));
     setInputValue("");
     setError("");
   };
 
   const removeTodo = (index) => {
-    setTodos(todos.filter((_, i) => i !== index));
+    const newTodos = todos.filter((_, i) => i !== index);
+    setTodos(newTodos);
+    localStorage.setItem("todos", JSON.stringify(newTodos));
   };
 
   const handleInputChange = (subject, field, value) => {
@@ -326,31 +339,31 @@ function DemoProject() {
       </div>
       <hr />
       <div>
-      <h3>
-        <b><center>Lottery Generator</center></b>
-      </h3>
-      <div style={{ textAlign: "center" }}>
-        <input
-          type="text"
-          value={lotteryNumber}
-          onChange={(e) => {
-            if (/^\d{0,6}$/.test(e.target.value)) {
-              setLotteryNumber(e.target.value);
-            }
-          }}
-          style={{ width: "150px", textAlign: "center", borderRadius:"10px"}}
-          maxLength="6"
-          placeholder="กรอกเลข 6 หลัก"
-        />
-        <div style={{ margin: "10px" }}>
-          <button onClick={generateLotteryNumbers} style={{ backgroundColor: "lightblue" }}>Generate</button>
-          <button onClick={checkLottery} style={{ marginLeft: "10px",backgroundColor: "lightblue" }}>
-            Check
-          </button>
+        <h3>
+          <b><center>Lottery Generator</center></b>
+        </h3>
+        <div style={{ textAlign: "center" }}>
+          <input
+            type="text"
+            value={lotteryNumber}
+            onChange={(e) => {
+              if (/^\d{0,6}$/.test(e.target.value)) {
+                setLotteryNumber(e.target.value);
+              }
+            }}
+            style={{ width: "150px", textAlign: "center", borderRadius: "10px" }}
+            maxLength="6"
+            placeholder="กรอกเลข 6 หลัก"
+          />
+          <div style={{ margin: "10px" }}>
+            <button onClick={generateLotteryNumbers} style={{ backgroundColor: "lightblue" }}>Generate</button>
+            <button onClick={checkLottery} style={{ marginLeft: "10px", backgroundColor: "lightblue" }}>
+              Check
+            </button>
+          </div>
+          {result && <p>{result}</p>}
         </div>
-        {result && <p>{result}</p>}
       </div>
-    </div>
     </div>
   );
 }
