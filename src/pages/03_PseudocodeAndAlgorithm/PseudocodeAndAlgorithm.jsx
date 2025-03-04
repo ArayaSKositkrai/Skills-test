@@ -235,7 +235,6 @@ function PseudocodeAndAlgorithm() {
         {sortedNumbers.length > 0 && (
           <p className="mt-2 text-lg">
             Sorted Numbers: {sortedNumbers.join(", ")}
-            {/* style={{ backgroundColor: "lightblue" }} */}
           </p>
         )}
       </div>
