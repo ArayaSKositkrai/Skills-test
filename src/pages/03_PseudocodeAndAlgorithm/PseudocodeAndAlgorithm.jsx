@@ -33,7 +33,7 @@ function PseudocodeAndAlgorithm() {
     try {
       const r = parseFloat(radius);
       console.log("Radius Input:", r);
-      if (!isNaN(r) && r > 0) {
+      if (!isNaN(r) && r >= 0) {
         setArea(3.14 * r * r);
       } else {
         throw new Error("Invalid radius value");
@@ -107,10 +107,12 @@ function PseudocodeAndAlgorithm() {
 
   const handleSort = () => {
     let numArray = numbers
-      .split(",")
-      .map((num) => parseInt(num.trim()))
-      .filter((num) => !isNaN(num));
-    setSortedNumbers(bubbleSort([...numArray]));
+    .split(",")
+    .map((num) => parseInt(num.trim()))
+    .filter((num) => !isNaN(num));
+
+  let uniqueArray = [...new Set(numArray)]; // ลบค่าที่ซ้ำกันออก
+  setSortedNumbers(bubbleSort(uniqueArray));
   };
 
   const factorial = (n) => {
@@ -159,6 +161,27 @@ function PseudocodeAndAlgorithm() {
       <button
         onClick={calculateArea}
         className="mt-2 bg-blue-500 text-black p-2 rounded w-full"
+        style={{ backgroundColor: "lightblue" }}
+      >
+        Calculate Area
+      </button>
+      &nbsp;
+      {area !== null && (
+        <p className="mt-2 text-lg">Area : {area.toFixed(2)}</p>
+      )}
+      <hr />
+      <h5 className="text-xl font-bold mt-4">Check Age Category</h5>
+      <input
+        type="number"
+        value={age}
+        onChange={(e) => setAge(e.target.value)}
+        placeholder="Enter age"
+        className="border p-2 w-full rounded"
+      />
+      &nbsp;
+      <button
+        onClick={checkAgeCategory}
+        className="mt-2 bg-green-500 text-black p-2 rounded w-full"
         style={{ backgroundColor: "lightblue" }}
       >
         Check Age
@@ -234,7 +257,7 @@ function PseudocodeAndAlgorithm() {
         </button>
         {sortedNumbers.length > 0 && (
           <p className="mt-2 text-lg">
-            Sorted Numbers: {sortedNumbers.join(", ")}
+            Sorted Numbers: {sortedNumbers.join(", ")},
           </p>
         )}
       </div>

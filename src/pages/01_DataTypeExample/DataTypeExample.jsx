@@ -16,12 +16,12 @@ const DataTypeExample = () => {
   const handleInput = () => {
     console.log("String Variable:", stringVar);
     console.log("Integer Variable:", parseInt(integerVar));
-    console.log("Boolean Variable:", booleanVar === "1");
+    console.log("Boolean Variable:", booleanVar === "true");
   };
 
   const handleBooleanChange = (e) => {
     const value = e.target.value;
-    if (value === "0" || value === "1") {
+    if (value === "false" || value === "true") {
       setBooleanVar(value);
     }
   };
@@ -34,7 +34,7 @@ const DataTypeExample = () => {
 
   const addItem = () => {
     if (newItem.trim() === "") return;
-    setList([...list, newItem]);
+    setList([newItem,...list]);
     setNewItem("");
   };
 
@@ -139,7 +139,7 @@ const DataTypeExample = () => {
           />
           &nbsp;
           <button onClick={addItem} style={{ backgroundColor: "lightblue" }}>Add</button>
-          <ul>
+          <ol>
             {list.map((item, index) => (
               <li key={index}>
                 {item} &nbsp;
@@ -147,7 +147,7 @@ const DataTypeExample = () => {
                 <button onClick={() => removeItem(index)}>ลบ</button>
               </li>
             ))}
-          </ul>
+          </ol>
         </div>
         <h5><b>
           Tuple & Set → ทดสอบสร้าง Tuple และใช้ Set เพื่อกำจัดค่าที่ซ้ำกัน

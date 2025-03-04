@@ -21,6 +21,7 @@ function DemoProject() {
   const [lotteryNumber, setLotteryNumber] = useState("");
   const [generatedNumber, setGeneratedNumber] = useState("");
   const [result, setResult] = useState("");
+  const [count, setCount] = useState(0); // เก็บค่าจำนวนที่กรอก
 
   useEffect(() => {
     try {
@@ -34,11 +35,7 @@ function DemoProject() {
     }
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(todos));
-  }, [todos]);
-
-  useEffect(() => {
+useEffect(() => {
     axios
       .get("https://jsonplaceholder.typicode.com/users")
       .then((response) => {
@@ -50,6 +47,7 @@ function DemoProject() {
         setLoading(false);
       });
   }, []);
+
 
   const addTodo = () => {
     if (inputValue.trim() === "") return;
@@ -312,31 +310,37 @@ function DemoProject() {
       </div>
       <hr />
       <div>
-        <h3>
-          <b>รายชื่อผู้ใช้</b>
-        </h3>
-        {loading ? (
-          <p>Loading...</p>
-        ) : userError ? (
-          <p>Error: {userError}</p>
-        ) : (
-          <ul>
-            {users.map((user) => (
-              <li key={user.id}>
-                <h5>{user.name}</h5>
-                <p>
-                  <strong>Email :</strong> {user.email}
-                </p>
-                <p>
-                  <strong>Address :</strong> {user.address.street},{" "}
-                  {user.address.city}
-                </p>
-                <hr />
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
+      <h3>
+        <b>รายชื่อผู้ใช้</b>
+      </h3>
+      <input
+        type="number"
+        className="OK"
+        value={count}
+        onChange={(e) => setCount(Number(e.target.value))} // อัปเดตค่าจำนวนที่กรอก
+      />
+      {loading ? (
+        <p>Loading...</p>
+      ) : userError ? (
+        <p>Error: {userError}</p>
+      ) : (
+        <ul>
+          {users.slice(0, count).map((user) => (
+            <li key={user.id}>
+              <h5>{user.name}</h5>
+              <p>
+                <strong>Email :</strong> {user.email}
+              </p>
+              <p>
+                <strong>Address :</strong> {user.address.street},{" "}
+                {user.address.city}
+              </p>
+              <hr />
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
       <hr />
       <div>
         <h3>
