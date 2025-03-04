@@ -161,27 +161,6 @@ function PseudocodeAndAlgorithm() {
         className="mt-2 bg-blue-500 text-black p-2 rounded w-full"
         style={{ backgroundColor: "lightblue" }}
       >
-        Calculate Area
-      </button>
-      &nbsp;
-      {area !== null && (
-        <p className="mt-2 text-lg">Area : {area.toFixed(2)}</p>
-      )}
-      <hr />
-      <h5 className="text-xl font-bold mt-4">Check Age Category</h5>
-      <input
-        type="number"
-        value={age}
-        onChange={(e) => setAge(e.target.value)}
-        placeholder="Enter age"
-        className="border p-2 w-full rounded"
-      />
-      &nbsp;
-      <button
-        onClick={checkAgeCategory}
-        className="mt-2 bg-green-500 text-black p-2 rounded w-full"
-        style={{ backgroundColor: "lightblue" }}
-      >
         Check Age
       </button>
       {category && <p className="mt-2 text-lg">Category : {category}</p>}
@@ -256,7 +235,7 @@ function PseudocodeAndAlgorithm() {
         {sortedNumbers.length > 0 && (
           <p className="mt-2 text-lg">
             Sorted Numbers: {sortedNumbers.join(", ")}
-            style={{ backgroundColor: "lightblue" }}
+            {/* style={{ backgroundColor: "lightblue" }} */}
           </p>
         )}
       </div>
