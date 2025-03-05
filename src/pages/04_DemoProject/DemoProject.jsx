@@ -2,11 +2,6 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 function DemoProject() {
-  const [todos, setTodos] = useState(() => {
-    return JSON.parse(localStorage.getItem("todos")) || []
-  });
-  const [inputValue, setInputValue] = useState("");
-  const [error, setError] = useState("");
   const [subjects, setSubjects] = useState({
     CSI101: { score: "", credits: "3" },
     CSI102: { score: "", credits: "3" },
@@ -49,18 +44,44 @@ useEffect(() => {
   }, []);
 
 
+  const [todos, setTodos] = useState(() => {
+    return JSON.parse(localStorage.getItem("todos")) || [];
+  });
+  const [inputValue, setInputValue] = useState("");
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    try {
+      const savedTodos = JSON.parse(localStorage.getItem("todos")) || [];
+      if (Array.isArray(savedTodos)) {
+        setTodos(savedTodos);
+      }
+    } catch (e) {
+      console.error("Error reading localStorage", e);
+      setTodos([]);
+    }
+  }, []);
+
   const addTodo = () => {
     if (inputValue.trim() === "") return;
-    if (todos.includes(inputValue.trim())) {
+    if (todos.some((todo) => todo.text === inputValue.trim())) {
       alert("ข้อมูลซ้ำ! กรุณาเพิ่มรายการที่ไม่ซ้ำกัน");
       setError("ข้อมูลซ้ำ");
       return;
     }
-    const newTodos = [...todos, inputValue.trim()];
+    const newTodos = [...todos, { text: inputValue.trim(), status: "waiting" }];
     setTodos(newTodos);
     localStorage.setItem("todos", JSON.stringify(newTodos));
     setInputValue("");
     setError("");
+  };
+
+  const toggleStatus = (index) => {
+    const newTodos = todos.map((todo, i) =>
+      i === index ? { ...todo, status: todo.status === "waiting" ? "success" : "waiting" } : todo
+    );
+    setTodos(newTodos);
+    localStorage.setItem("todos", JSON.stringify(newTodos));
   };
 
   const removeTodo = (index) => {
@@ -68,6 +89,7 @@ useEffect(() => {
     setTodos(newTodos);
     localStorage.setItem("todos", JSON.stringify(newTodos));
   };
+
 
   const handleInputChange = (subject, field, value) => {
     if (
@@ -127,96 +149,45 @@ useEffect(() => {
 
   return (
     <div>
+      <div>
       <h3><b><center>Demo Project</center></b></h3>
-      <h5>
-        <b>
-          <center>To-Do List Web App</center>
-        </b>
-      </h5>
-      <div
-        style={{
-          textAlign: "center",
-          padding: "20px",
-          maxWidth: "400px",
-          margin: "auto",
-        }}
-      >
+      <h5><b><center>To-Do List Web App</center></b></h5>
+      <div style={{ textAlign: "center", padding: "20px", maxWidth: "400px", margin: "auto" }}>
         <input
           type="text"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           placeholder="Add a new task..."
-          style={{
-            padding: "8px",
-            width: "70%",
-            marginRight: "5px",
-            borderRadius: "5px",
-            border: "1px solid #ccc",
-          }}
+          style={{ padding: "8px", width: "70%", marginRight: "5px", borderRadius: "5px", border: "1px solid #ccc" }}
         />
-        <button
-          onClick={addTodo}
-          style={{
-            padding: "8px",
-            borderRadius: "5px",
-            background: "lightblue",
-            color: "black",
-            border: "none",
-          }}
-        >
-          Add
-        </button>
+        <button onClick={addTodo} style={{ padding: "8px", borderRadius: "5px", background: "lightblue", color: "black", border: "none" }}>Add</button>
         {error && <p style={{ color: "red" }}>{error}</p>}
       </div>
-      <table
-        style={{
-          width: "50%",
-          margin: "auto",
-          borderCollapse: "collapse",
-          textAlign: "center",
-          background: "ligthblue",
-          boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
-          borderRadius: "10px",
-          overflow: "hidden",
-        }}
-      >
+      <table style={{ width: "50%", margin: "auto", borderCollapse: "collapse", textAlign: "center", background: "lightblue", boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)", borderRadius: "10px", overflow: "hidden" }}>
         <thead>
           <tr style={{ background: "#ADD8E6", color: "black" }}>
-            <th style={{ padding: "10px", borderBottom: "2px solid #ddd" }}>
-              Task
-            </th>
-            <th style={{ padding: "10px", borderBottom: "2px solid #ddd" }}>
-              Action
-            </th>
+            <th style={{ padding: "10px", borderBottom: "2px solid #ddd" }}>Task</th>
+            <th style={{ padding: "10px", borderBottom: "2px solid #ddd" }}>Status</th>
+            <th style={{ padding: "10px", borderBottom: "2px solid #ddd" }}>Action</th>
           </tr>
         </thead>
         <tbody>
           {todos.map((todo, index) => (
-            <tr
-              key={index}
-              style={{ background: index % 2 === 0 ? "#f9f9f9" : "#fff" }}
-            >
+            <tr key={index} style={{ background: index % 2 === 0 ? "#f9f9f9" : "#fff" }}>
+              <td style={{ padding: "10px", borderBottom: "1px solid #ddd" }}>{todo.text}</td>
               <td style={{ padding: "10px", borderBottom: "1px solid #ddd" }}>
-                {todo}
+                <button onClick={() => toggleStatus(index)} style={{ background: todo.status === "waiting" ? "orange" : "green", color: "white", border: "none", borderRadius: "20px", padding: "5px" }}>
+                  {todo.status}
+                </button>
               </td>
               <td style={{ padding: "10px", borderBottom: "1px solid #ddd" }}>
-                <button
-                  onClick={() => removeTodo(index)}
-                  style={{
-                    background: "red",
-                    color: "white",
-                    border: "none",
-                    borderRadius: "20px",
-                    padding: "5px",
-                  }}
-                >
-                  x
-                </button>
+                <button onClick={() => removeTodo(index)} style={{ background: "red", color: "white", border: "none", borderRadius: "20px", padding: "5px" }}>x</button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+    </div>
       <hr />
       <h5>
         <b>
